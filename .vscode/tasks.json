@@ -1,0 +1,18 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CompileToMips",
+      "type": "shell",
+      "command": "pcompile ${relativeFile}; ldpic32 ${relativeFileDirname}/${fileBasenameNoExtension} -p \"/dev/ttyS4\"; rm ${relativeFileDirname}/*.hex;rm ${relativeFileDirname}/*.map;rm ${relativeFileDirname}/*.elf; rm *.map; rm ${relativeFileDirname}/*.o; pterm -p \"/dev/ttyS4\"",
+      
+    },
+    {
+      "label": "Send to PIC",
+      "type": "shell",
+      "command":"ldpic32 ${relativeFile} -p \"/dev/ttyS4\"; pterm -p \"/dev/ttyS4\""
+    }
+  ]
+}
