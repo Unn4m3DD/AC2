@@ -5,7 +5,8 @@ void delay(unsigned int ms) {
   int k = PBCLK / 1000;
   for (; ms > 0; ms--) {
     resetCoreTimer();
-    while (readCoreTimer() < k) 6;
+    while (readCoreTimer() < k)
+      ;
   }
 }
 
@@ -22,9 +23,10 @@ void send2displaysHex(unsigned char value) {
   }
   current_display = current_display ? 0 : 1;
 }
+
 void send2displaysDec(unsigned char value) {
   static int current_display = 0;
-  int dot = value % 2;
+  int dot = 0;
   if (current_display) {
     int num1 = (value) % 10;
     LATB = codes[num1] << 8;

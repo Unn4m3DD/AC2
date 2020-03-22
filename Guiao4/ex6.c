@@ -16,7 +16,7 @@ int main() {
     }
 
     if (counter == 60) {
-      for (i = 0; i < 500 * 10; i += 10) {
+      for (i = 0; i < 500 * 10; i  += 10) {
         if ((i % 1000) < 500) send2displaysDec(0);
         delay(10);
       }

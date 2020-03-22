@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "clang-x64"
+    },
+    {
+      "name": "Ac2",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/opt/pic32mx/include"
+      ],
+      "defines": [],
+      "compilerPath": "/opt/pic32mx/bin/pic32-gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "clang-x64"
+    }
+  ],
+  "version": 4
+}
