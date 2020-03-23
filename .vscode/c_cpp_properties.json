@@ -1,17 +1,6 @@
 {
   "configurations": [
     {
-      "name": "Linux",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
-      "defines": [],
-      "compilerPath": "/usr/bin/gcc",
-      "cStandard": "c11",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "clang-x64"
-    },
-    {
       "name": "Ac2",
       "includePath": [
         "${workspaceFolder}/**",
