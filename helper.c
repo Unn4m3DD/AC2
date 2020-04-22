@@ -69,7 +69,8 @@ void my_putc(char byte_to_send) {
 }
 
 void my_puts(char* str) {
-  for (char c = *str; *str != '\0'; str++) {
-    putc(str);
+  char c;
+  for (c = *str; *str != '\0'; str++) {
+    my_putc(*str);
   }
 }
