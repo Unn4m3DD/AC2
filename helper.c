@@ -52,6 +52,7 @@ void configUART1(unsigned int baudrate, char parity, unsigned int bit_count,
   stop_bits_count =
       stop_bits_count == 1 || stop_bits_count == 2 ? stop_bits_count : 1;
   bit_count = bit_count == 8 || bit_count == 9 ? bit_count : 8;
+
   U1BRG = ((PBCLK + 8 * baudrate) / (16 * baudrate)) - 1;
   U1MODEbits.BRGH = 0;
   U1MODEbits.PDSEL =
