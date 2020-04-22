@@ -1,5 +1,4 @@
 #include <detpic32.h>
-
 #include "./../helper.c"
 
 struct Config {
@@ -15,6 +14,8 @@ int main() {
                               {19200, 'N', 2},
                               {115200, 'E', 1}};
   int testType = 0;
+  struct Config config = configs[testType];
+  configUART1(.baudrate)
   while (1) {
     my_puts("String de teste\n");
     delay(1000);

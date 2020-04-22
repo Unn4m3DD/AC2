@@ -63,9 +63,9 @@ void configUART1(unsigned int baudrate, char parity, unsigned int bit_count,
 }
 
 void my_putc(char byte_to_send) {
-  while (U1STAbits.UTXBF == 1) {
-    U1TXREG = byte_to_send;
-  }
+  while (U1STAbits.UTXBF == 1)
+    ;
+  U1TXREG = byte_to_send;
 }
 
 void my_puts(char* str) {
