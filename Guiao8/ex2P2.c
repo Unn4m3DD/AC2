@@ -119,6 +119,7 @@ void _int_(12) isr_T3(void) {
     my_putc(val / 10 + 48);
     my_putc('.');
     my_putc(val % 10 + 48);
+    my_putc('\n');
     counter = 0;
   }
   send2displaysDec(val);
