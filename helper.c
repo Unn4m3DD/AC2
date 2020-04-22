@@ -75,3 +75,15 @@ void my_puts(char* str) {
     my_putc(*str);
   }
 }
+
+char getc(void) {
+  if (U1STAbits.OERR == 1) U1STAbits.OERR = 0;
+  while (U1STAbits.URXDA == 0)
+    ;
+  if (U1STAbits.FERR || U1STAbits.PERR) {
+    int garb = U1RXREG;
+    return 0;
+  } else {
+    return U1RXREG;
+  }
+}
