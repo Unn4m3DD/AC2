@@ -1,4 +1,5 @@
 #include <detpic32.h>
+#include <stdlib.h>
 
 #include "./../helper.c"
 volatile int val = 0, min_val = 99999, max_val = 0;
@@ -69,6 +70,12 @@ void routine1x() {
   LATEbits.LATE0 = LATDbits.LATD0;
 }
 
+void UART1Interrupts(int priority) {
+  U1STAbits.URXISEL0 = 0;
+  U1STAbits.URXISEL1 = 0;
+  IEC0bits.U1RXIE = 1;
+  IPC6bits.U1AIP = 3;
+}
 int main() {
   configT1();
   configT3();
@@ -89,13 +96,13 @@ int main() {
 void _int_(24) isr_uart1(void) {
   if (U1RXREG == 'l' || U1RXREG == 'L') {
     my_puts("MAX: ");
-    my_putc(itoa(max_val / 10));
+    my_putc(max_val / 10 + 48);
     my_putc('.');
-    my_putc(itoa(max_val % 10));
+    my_putc(max_val % 10 + 48);
     my_puts("\nMIN: ");
-    my_putc(itoa(min_val / 10));
+    my_putc(min_val / 10 + 48);
     my_putc('.');
-    my_putc(itoa(min_val % 10));
+    my_putc(min_val % 10 + 48);
     my_putc('\n');
   }
   IFS0bits.U1RXIF = 0;
@@ -106,12 +113,12 @@ void _int_(4) isr_T1(void) {
 }
 
 void _int_(12) isr_T3(void) {
-  static counter = 0;
+  static int counter = 0;
   counter++;
   if (counter > 100) {
-    my_putc(itoa(val / 10));
+    my_putc(val / 10 + 48);
     my_putc('.');
-    my_putc(itoa(val % 10));
+    my_putc(val % 10 + 48);
     counter = 0;
   }
   send2displaysDec(val);
