@@ -76,7 +76,7 @@ void my_puts(char* str) {
   }
 }
 
-char getc(void) {
+char my_getc(void) {
   if (U1STAbits.OERR == 1) U1STAbits.OERR = 0;
   while (U1STAbits.URXDA == 0)
     ;
