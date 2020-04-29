@@ -90,9 +90,13 @@ int main() {
 
   char current_char;
   while (1) {
-    char current_char;
-    while (comDrv_getc(&current_char) == 0)
+    volatile char current_char;
+    int result = comDrv_getc(&current_char);
+    while (current_char == 0) {
       putChar(current_char);
+      result = comDrv_getc(&current_char);
+    }
+
     if (current_char == 'S') comDrv_puts("String De Pelo Menos 30 Caracteres");
   }
 }
