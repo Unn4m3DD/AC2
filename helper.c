@@ -1,5 +1,9 @@
 #include <detpic32.h>
 #pragma once
+#define DisableUart1RxInterrupt() IEC0bits.U1RXIE = 0
+#define EnableUart1RxInterrupt()  IEC0bits.U1RXIE = 1
+#define DisableUart1TxInterrupt() IEC0bits.U1TXIE = 0
+#define EnableUart1TxInterrupt()  IEC0bits.U1TXIE = 1
 int codes[16] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07,
                  0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
 
