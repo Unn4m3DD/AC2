@@ -51,11 +51,22 @@ void _int_(24) isr_uart1(void) {
   if (txb.count == 0) DisableUart1TxInterrupt();
   IFS0bits.U1RXIF = 0;
 }
+// [_, 1, 2, 3, _, _]
+//    ^        ^
+//    first    last
 
-
-
+char comDrv_getc(char* pchar) {
+  if (rxb.count == 0) return 0;
+  DisableUart1RxInterrupt();  // Begin of critical section
+  *pchar = rxb.first;
+  rxb.first = (rxb.first + 1) & INDEX_MASK;
+  rxb.count--;
+  EnableUart1RxInterrupt();  // End of critical section
+  return 1;
+}
 int main() {
   configUART1(115200, 'N', 8, 1);
+  IPC6bits.U1IP = 3;
   comDrv_flushRx();
   comDrv_flushTx();
   EnableInterrupts();
