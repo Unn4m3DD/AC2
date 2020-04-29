@@ -45,6 +45,7 @@ void comDrv_puts(char* str) {
 }
 void _int_(24) isr_uart1(void) {
   if (IFS0bits.U1TXIF == 1) {
+    // while (txb.count != 0 && U1STAbits.UTXBF != 0) {
     if (txb.count != 0) {
       U1TXREG = txb.data[txb.first];
       txb.first = ((txb.first + 1) & INDEX_MASK);
@@ -53,6 +54,7 @@ void _int_(24) isr_uart1(void) {
     if (txb.count == 0) DisableUart1TxInterrupt();
     IFS0bits.U1TXIF = 0;
   } else if (IFS0bits.U1RXIF == 1) {
+    // while (U1STAbits.URXDA != 0) {
     rxb.data[rxb.last] = U1RXREG;
     rxb.last = (rxb.last + 1) & INDEX_MASK;
     if (rxb.count < BUF_SIZE)
@@ -60,13 +62,14 @@ void _int_(24) isr_uart1(void) {
     else
       rxb.first = (rxb.first + 1) & INDEX_MASK;
     IFS0bits.U1RXIF = 0;
+    //}
   }
 }
 // [_, 1, 2, 3, _, _]
 //    ^        ^
 //    first    last
 
-char comDrv_getc(char* pchar) {
+int comDrv_getc(char* pchar) {
   if (rxb.count == 0) return 0;
   DisableUart1RxInterrupt();
   *pchar = rxb.first;
@@ -83,13 +86,13 @@ int main() {
   comDrv_flushTx();
   EnableInterrupts();
   comDrv_puts("Vida Feliz ^^\n");
+  comDrv_puts("Vida Feliz ^^\n");
 
   char current_char;
   while (1) {
     char current_char;
     while (comDrv_getc(&current_char) == 0)
-      ;
-    if(current_char == 'S')
-      comDrv_puts("String De Pelo Menos 30 Caracteres");
+      putChar(current_char);
+    if (current_char == 'S') comDrv_puts("String De Pelo Menos 30 Caracteres");
   }
 }
