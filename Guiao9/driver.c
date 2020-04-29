@@ -37,24 +37,25 @@ void comDrv_putc(char ch) {
   EnableUart1TxInterrupt();
 }
 
-void comDrv_puts(char* s) {
-  while (*s++ != '\0') {
-    comDrv_putc(*s);
+void comDrv_puts(char* str) {
+  char c;
+  for (c = *str; *str != '\0'; str++) {
+    my_putc(*str);
   }
 }
 void _int_(24) isr_uart1(void) {
   if (txb.count != 0) {
     U1TXREG = txb.data[txb.first];
-    txb.first = (txb.first + 1) & INDEX_MASK;
+    txb.first = ((txb.first + 1) & INDEX_MASK);
     txb.count--;
   }
   if (txb.count == 0) DisableUart1TxInterrupt();
-  IFS0bits.U1RXIF = 0;
+  IFS0bits.U1TXIF = 0;
 }
 // [_, 1, 2, 3, _, _]
 //    ^        ^
 //    first    last
-
+/*
 char comDrv_getc(char* pchar) {
   if (rxb.count == 0) return 0;
   DisableUart1RxInterrupt();  // Begin of critical section
@@ -64,11 +65,12 @@ char comDrv_getc(char* pchar) {
   EnableUart1RxInterrupt();  // End of critical section
   return 1;
 }
+*/
 int main() {
   configUART1(115200, 'N', 8, 1);
   IPC6bits.U1IP = 3;
   comDrv_flushRx();
   comDrv_flushTx();
   EnableInterrupts();
-  while (1) comDrv_puts("Teste do bloco de transmissao do device driver!...");
+  while (1) comDrv_puts("1234\n");
 }
