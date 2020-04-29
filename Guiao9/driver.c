@@ -89,6 +89,7 @@ int main() {
     char current_char;
     while (comDrv_getc(&current_char) == 0)
       ;
-    comDrv_putc(current_char);
+    if(current_char == 'S')
+      comDrv_puts("String De Pelo Menos 30 Caracteres");
   }
 }
