@@ -55,6 +55,7 @@ void sentToDisplays(int left, int right) {
     LATB = (LATB & 0xff00) | (display_codes[right] << 8);
   }
   current_white = current_white == 0 ? 1 : 0;
+  current_display = current_display == 0 ? 1 : 0;
 }
 
 void showToUser() {
