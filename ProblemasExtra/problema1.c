@@ -3,8 +3,8 @@
 int display_codes[16] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07,
                          0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
 
-volatile white_time = 400, black_time = 400;
-volatile current_white = 0;
+volatile int white_time = 400, black_time = 400;
+volatile int current_white = 0;
 void configLed() {
   TRISEbits.TRISE0 = 0;
   TRISEbits.TRISE1 = 0;
@@ -34,8 +34,8 @@ void configDisplayTimer() {  //160hz
   T2CONbits.TON = 1;
 }
 
-void sentToDisplays(char left, char right) {
-  static current_display = 0;
+void sentToDisplays(int left, int right) {
+  static int current_display = 0;
   if (current_display == 0) {
     LATDbits.LATD5 = 1;
     LATDbits.LATD6 = 0;
@@ -65,7 +65,7 @@ void showToUser() {
 int main() {
   configLed();
   configDisplay();
-  configTimer1();
+  configDisplayTimer();
   while (white_time >= 0 && black_time >= 0) {
     char current_char = getChar();
     if (current_char == 'b') {
