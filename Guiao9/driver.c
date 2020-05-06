@@ -73,7 +73,7 @@ void _int_(24) isr_uart1(void) {
 int comDrv_getc(char* pchar) {
   if (rxb.count == 0) return 0;
   DisableUart1RxInterrupt();
-  *pchar = rxb.first;
+  *pchar = rxb.data[rxb.first];
   rxb.first = (rxb.first + 1) & INDEX_MASK;
   rxb.count--;
   EnableUart1RxInterrupt();
