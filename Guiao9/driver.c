@@ -38,7 +38,7 @@ void comDrv_putc(char ch) {
 }
 
 void comDrv_puts(char* str) {
-  while(*str != '\0'){
+  while (*str != '\0') {
     comDrv_putc(*str);
     str++;
   }
@@ -90,12 +90,12 @@ int main() {
   comDrv_puts("Vida Feliz ^^\n");
   comDrv_puts("Vida Feliz ^^\n");
 
-  char current_char;
   while (1) {
-    volatile char current_char;
+    char current_char;
     int result = comDrv_getc(&current_char);
     while (current_char == 0) {
-      putChar(current_char);
+      if (result == 1)
+        putChar(current_char);
       result = comDrv_getc(&current_char);
     }
 
