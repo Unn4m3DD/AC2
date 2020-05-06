@@ -93,9 +93,8 @@ int main() {
   while (1) {
     char current_char;
     int result = comDrv_getc(&current_char);
-    while (current_char == 0) {
-      if (result == 1)
-        putChar(current_char);
+    while (result == 0) {
+      putChar(current_char);
       result = comDrv_getc(&current_char);
     }
 
