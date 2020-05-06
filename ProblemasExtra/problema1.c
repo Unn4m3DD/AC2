@@ -34,6 +34,15 @@ void configDisplayTimer() {  //160hz
   T2CONbits.TON = 1;
 }
 
+void configDecTimer() {  //10hz
+  T3CONbits.TCKPS = 5;
+  PR3 = 62499;
+  TMR3 = 0;
+  IPC3bits.T3IP = 2;
+  IEC0bits.T3IE = 1;
+  IFS0bits.T3IF = 0;
+  T3CONbits.TON = 1;
+}
 void sentToDisplays(int left, int right) {
   static int current_display = 0;
   if (current_display == 0) {
@@ -82,4 +91,14 @@ int main() {
 
 void _int_(8) isr_T2() {
   showToUser();
+  IFS0bits.T2IF = 0;
+}
+
+void _int_(12) isr_T3() {
+  if (current_white == 1) {
+    white_time--;
+  } else {
+    black_time--;
+  }
+  IFS0bits.T3IF = 0;
 }
