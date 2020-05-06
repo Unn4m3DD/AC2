@@ -38,9 +38,9 @@ void comDrv_putc(char ch) {
 }
 
 void comDrv_puts(char* str) {
-  char c;
-  for (c = *str; *str != '\0'; str++) {
-    comDrv_putc(c);  // <-
+  while(*str != '\0'){
+    comDrv_putc(str);
+    str++;
   }
 }
 
