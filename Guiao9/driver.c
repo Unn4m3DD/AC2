@@ -28,8 +28,8 @@ void comDrv_flushTx(void) {
 //    ^        ^
 //    first    last
 void comDrv_putc(char ch) {
-  while (txb.count == BUF_SIZE) {
-  }
+  while (txb.count == BUF_SIZE)
+    ;
   txb.data[txb.last] = ch;
   txb.last = ((txb.last + 1) & INDEX_MASK);
   DisableUart1TxInterrupt();
@@ -40,9 +40,10 @@ void comDrv_putc(char ch) {
 void comDrv_puts(char* str) {
   char c;
   for (c = *str; *str != '\0'; str++) {
-    comDrv_putc(*str);  // <-
+    comDrv_putc(c);  // <-
   }
 }
+
 void _int_(24) isr_uart1(void) {
   if (IFS0bits.U1TXIF == 1) {
     // while (txb.count != 0 && U1STAbits.UTXBF != 0) {
