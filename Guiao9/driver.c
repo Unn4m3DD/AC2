@@ -39,7 +39,7 @@ void comDrv_putc(char ch) {
 
 void comDrv_puts(char* str) {
   while(*str != '\0'){
-    comDrv_putc(str);
+    comDrv_putc(*str);
     str++;
   }
 }
