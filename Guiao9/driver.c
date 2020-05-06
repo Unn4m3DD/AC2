@@ -86,6 +86,7 @@ int main() {
   comDrv_flushRx();
   comDrv_flushTx();
   EnableInterrupts();
+  comDrv_putc(' ');
   comDrv_puts("Vida Feliz ^^\n");
   comDrv_puts("Vida Feliz ^^\n");
 
