@@ -39,11 +39,11 @@ void sentToDisplays(int left, int right) {
   if (current_display == 0) {
     LATDbits.LATD5 = 1;
     LATDbits.LATD6 = 0;
-    LATB = (display_codes[left] << 8);
+    LATB = (LATB & 0xff00) | (display_codes[left] << 8);
   } else {
     LATDbits.LATD5 = 0;
     LATDbits.LATD6 = 1;
-    LATB = (display_codes[right] << 8);
+    LATB = (LATB & 0xff00) | (display_codes[right] << 8);
   }
   current_white = current_white == 0 ? 1 : 0;
 }
@@ -52,13 +52,13 @@ void showToUser() {
   int time_to_show = current_white == 1 ? white_time : black_time;
   int led_amount = time_to_show / 100 % 10;
   if (led_amount <= 1)
-    LATEbits.LATE4 = 1;
+    LATEbits.LATE0 = 1;
   if (led_amount <= 2)
-    LATEbits.LATE5 = 1;
+    LATEbits.LATE1 = 1;
   if (led_amount <= 3)
-    LATEbits.LATE6 = 1;
+    LATEbits.LATE2 = 1;
   if (led_amount <= 4)
-    LATEbits.LATE7 = 1;
+    LATEbits.LATE3 = 1;
   sentToDisplays(time_to_show / 10 % 10, time_to_show % 10);
 }
 
