@@ -8,6 +8,7 @@
     "stdarg.h": "c",
     "p32mx795f512h.h": "c",
     "ppic32mx.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "math.h": "c"
   }
 }

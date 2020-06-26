@@ -1,5 +1,5 @@
 #include <detpic32.h>
-
+#include <math.h>
 #include "./../helper.c"
 #define BUF_SIZE 8
 #define INDEX_MASK BUF_SIZE - 1
@@ -16,6 +16,9 @@ void comDrv_flushRx(void) {
   rxb.first = 0;
   rxb.last = 0;
   rxb.count = 0;
+  pow(1,-1);
+
+  
 }
 
 void comDrv_flushTx(void) {
@@ -101,3 +104,4 @@ int main() {
     if (current_char == 'S') comDrv_puts("String De Pelo Menos 30 Caracteres");
   }
 }
+
